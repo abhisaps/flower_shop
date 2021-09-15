@@ -1,4 +1,4 @@
-from src.bouquet.utility.constants import menu, history
+from src.bouquet.utility.constants import menu1, history
 from src.bouquet.utility.printing import *
 from src.bouquet.stock_maintain import *
 from src.bouquet.utility.date_time import date_time
@@ -12,17 +12,17 @@ def gateway():  # 2nd most important function after main func, called gateway
         separate_line()
 
         if n == "1":
-            display_menu(menu)
+            display_menu(menu1)
             separate_line()
 
         elif n == "2":
             o2 = FlowerInventory()
-            o2.add_flower(menu)
+            o2.add_flower(menu1)
             separate_line()
 
         elif n == "3":
             o2 = FlowerInventory()
-            o2.del_flower(menu)
+            o2.del_flower(menu1)
             separate_line()
 
         elif n == "4":
@@ -64,24 +64,24 @@ def taking_order():
 def checking_order(key, dict_user_bouquet):
     flag = 0  # flag and count both used for switching b/w condition
     count = 0
-    not_in_menu = []  # empty list which store that flower which is not present in menu
+    not_in_menu1 = []  # empty list which store that flower which is not present in menu
     stock_bouquet = ''  # empty string which stores the flower which is available in stock from user_bouquet
     for i in key:
-        if i not in menu.keys():
-            not_in_menu.append(i)
+        if i not in menu1.keys():
+            not_in_menu1.append(i)
             count += 1
             # count != 0 --> all flowers are not present in menu...and adding unavailable flowers in "not_in_menu" list
 
         else:
-            if dict_user_bouquet[i] <= menu[i]:
+            if dict_user_bouquet[i] <= menu1[i][0]:
                 stock_bouquet = stock_bouquet + (i * dict_user_bouquet[i])
                 # here count == 0 & flag ==  0 --> means all flowers of user bouquet is available in stock...
             else:
-                print("Sorry {} is only {} in stock...".format(i, menu[i]))
-                stock_bouquet = stock_bouquet + (i * menu[i])
+                print("Sorry {} is only {} in stock...".format(i, menu1[i][0]))
+                stock_bouquet = stock_bouquet + (i * menu1[i][0])
                 flag += 1
 
-    checking_stock(count, not_in_menu, stock_bouquet)  # calling next function
+    checking_stock(count, not_in_menu1, stock_bouquet)  # calling next function
     order_confirmation(flag, stock_bouquet)
 
 
@@ -106,7 +106,6 @@ def order_confirmation(flag, stock_bouquet):
 # this choice_input is a function which is in infinite loop till the user didn't enter the desirable input..
 # if user enters correct input then, it will proceed further...
 
-
 def choice_input(stock_bouquet):
     while True:
         n = input("Enter choice --> : ")
@@ -116,11 +115,11 @@ def choice_input(stock_bouquet):
             print("Placed Order : ", stock_bouquet)
             date_time()
             o2 = FlowerInventory()
-            o2.deducting_from_stock(menu, stock_bouquet)  # deducting quantity from database
+            o2.deducting_from_stock(menu1, stock_bouquet)  # deducting quantity from database
             break
 
         elif n == "2":
-            display_menu(menu)  # showing menu
+            display_menu(menu1)  # showing menu
             taking_order()
             break
 

@@ -2,10 +2,11 @@ def choose_menu():
     print("Choose Options...\n1. View Menu\n2. Add Flower\n3. Delete Flower\n4. Purchase Flower\n5. View Order History\n6. Exit")
 
 
-def display_menu(menu):
-    print("Flowers  |  Quantity")
-    for i in menu.keys():
-        print("   ", i, "  -->", "   ", menu[i])
+def display_menu(menu1):
+    print("Code  |  Quantity  |  Flowers")
+    separate_line()
+    for i in menu1.keys():
+        print(" ", i, " -->", "  ", menu1[i][0], "   -->", " ",menu1[i][1])
 
 
 def display_order_history(history):
